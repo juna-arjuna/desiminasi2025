@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kurikulum Mendalam (Deep Learning)</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ===== Slideshow Style ===== */
+    .slideshow-container {
+      max-width: 900px;
+      position: relative;
+      margin: 40px auto;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      background: #000;
+    }
+
+    .slide {
+      display: none;
+    }
+
+    .slide img {
+      width: 100%;
+      border-radius: 10px;
+      vertical-align: middle;
+    }
+
+    /* Tombol Next & Prev */
+    .prev, .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      width: auto;
+      padding: 16px;
+      color: white;
+      font-weight: bold;
+      font-size: 22px;
+      border-radius: 3px;
+      user-select: none;
+      background-color: rgba(0,0,0,0.4);
+      transition: 0.3s;
+    }
+
+    .next {
+      right: 0;
+    }
+
+    .prev:hover, .next:hover {
+      background-color: rgba(0,0,0,0.7);
+    }
+
+    /* Tombol fullscreen */
+    .fullscreen-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: rgba(255,255,255,0.8);
+      color: #333;
+      border: none;
+      border-radius: 5px;
+      padding: 6px 10px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .fullscreen-btn:hover {
+      background-color: #ddd;
+    }
+
+    /* Titik indikator */
+    .dots {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .dot {
+      cursor: pointer;
+      height: 12px;
+      width: 12px;
+      margin: 0 3px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      transition: background-color 0.3s;
+    }
+
+    .active-dot {
+      background-color: #1a703c;
+    }
+
+    /* Mode fullscreen: biar tetap bagus */
+    .fullscreen-mode {
+      width: 100vw !important;
+      height: 100vh !important;
+      position: fixed !important;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      border-radius: 0 !important;
+    }
+
+    .fullscreen-mode img {
+      height: 100vh;
+      object-fit: contain;
+      border-radius: 0;
+    }
+
+    @media (max-width: 768px) {
+      .prev, .next {
+        font-size: 16px;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+</head>
+<body>
+<header>
+  <div class="header-left">
+    <img src="https://juna-arjuna.github.io/desiminasi2025/MJ.jpg" alt="Moh. Junaidi, S.Pd.">
+  </div>
+
+  <div class="header-text">
+    <h1>DESIMINASI PEMBELAJARAN BERMAKNA UNTUK SEMUA</h1>
+    <p><b>MEDIA PEMBELAJARAN BERBASIS KODING & KECERDASAN ARTIFISIAL</b></p>
+    <big>Presented By : <b>Moh. Junaidi, S.Pd.</b> & <b>Evi Noor Hidayah, S.Pd.I.</b></big>
+  </div>
+
+  <div class="header-right">
+    <img src="https://juna-arjuna.github.io/desiminasi2025/EV.JPG" alt="Evi Noor Hidayah, S.Pd.I.">
+  </div>
+</header>
+
+  <nav>
+    <a href="index.html">Beranda</a>
+    <a href="kurikulum-mendalam.html" class="active">Kurikulum Mendalam</a>
+    <a href="kurikulum-cinta.html">Kurikulum CINTA</a>
+    <a href="prompt.html">Prompt</a>
+    <a href="coding.html">Coding</a>
+    <a href="html.html">HTML</a>
+    <a href="hosting.html">Hosting</a>
+    <a href="sharing.html">Sharing</a>
+  </nav>
+
+  <main class="container">
+    <h2>Kurikulum Mendalam (Deep Learning)</h2>
+    <p>Materi ini membahas penerapan pembelajaran mendalam berbasis eksplorasi, refleksi, dan pemaknaan pengalaman belajar peserta didik.</p>
+
+    <!-- ===== SLIDESHOW MULAI DI SINI ===== -->
+    <div class="slideshow-container" id="slideshow">
+      <button class="fullscreen-btn" onclick="toggleFullscreen()">⛶ Full Screen</button>
+    </div>
+    <div class="dots"></div>
+  </main>
+
+  <footer>
+    dibuat oleh : <b>@Juna-Arjuna</b> - MTs NU Nurul Huda Kudus
+  </footer>
+
+  <script>
+    // ===== DAFTAR GAMBAR SLIDE =====
+    const imageLinks = [];
+    for (let i = 1; i <= 64; i++) {
+      imageLinks.push(`https://juna-arjuna.github.io/deep/${i}.png`);
+    }
+
+    // ===== GENERATE SLIDES =====
+    const slideContainer = document.querySelector('.slideshow-container');
+    const dotsContainer = document.querySelector('.dots');
+
+    imageLinks.forEach((link, i) => {
+      const slideDiv = document.createElement('div');
+      slideDiv.className = 'slide';
+      slideDiv.innerHTML = `<img src="${link}" alt="Slide ${i + 1}">`;
+      slideContainer.appendChild(slideDiv);
+
+      const dot = document.createElement('span');
+      dot.className = 'dot';
+      dot.onclick = () => showSlide(i + 1);
+      dotsContainer.appendChild(dot);
+    });
+
+    // Tombol prev/next
+    const prevBtn = document.createElement('a');
+    prevBtn.className = 'prev';
+    prevBtn.textContent = '❮';
+    prevBtn.onclick = () => plusSlides(-1);
+    const nextBtn = document.createElement('a');
+    nextBtn.className = 'next';
+    nextBtn.textContent = '❯';
+    nextBtn.onclick = () => plusSlides(1);
+    slideContainer.appendChild(prevBtn);
+    slideContainer.appendChild(nextBtn);
+
+    // ===== LOGIKA SLIDESHOW =====
+    let slideIndex = 1;
+    showSlide(slideIndex);
+
+    function plusSlides(n) {
+      showSlide(slideIndex += n);
+    }
+
+    function showSlide(n) {
+      const slides = document.getElementsByClassName("slide");
+      const dots = document.getElementsByClassName("dot");
+      if (n > slides.length) slideIndex = 1;
+      if (n < 1) slideIndex = slides.length;
+      for (let i = 0; i < slides.length; i++) slides[i].style.display = "none";
+      for (let i = 0; i < dots.length; i++) dots[i].classList.remove("active-dot");
+      slides[slideIndex - 1].style.display = "block";
+      dots[slideIndex - 1].classList.add("active-dot");
+    }
+
+ 
+    // ===== FULLSCREEN FUNCTION =====
+    function toggleFullscreen() {
+      const slideshow = document.getElementById("slideshow");
+      if (!document.fullscreenElement) {
+        slideshow.requestFullscreen().catch(err => console.log(err));
+        slideshow.classList.add("fullscreen-mode");
+      } else {
+        document.exitFullscreen();
+        slideshow.classList.remove("fullscreen-mode");
+      }
+    }
+
+    // Keluar fullscreen → hapus class
+    document.addEventListener("fullscreenchange", () => {
+      const slideshow = document.getElementById("slideshow");
+      if (!document.fullscreenElement) {
+        slideshow.classList.remove("fullscreen-mode");
+      }
+    });
+  </script>
+</body>
+</html>
